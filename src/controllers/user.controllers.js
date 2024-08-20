@@ -5,8 +5,15 @@ const jwt = require('jsonwebtoken')
 
 
 const getAll = catchError(async(req, res) => {
+   // console.log('llego...',req.body)
     const results = await User.findAll();
-    return res.json(results);
+    results.forEach((x)=>{    
+          delete x.dataValues.email
+          delete x.dataValues.password     
+         console.log(x)
+    })
+
+   return res.json(results);
 });
 
 const create = catchError(async(req, res) => {
@@ -25,12 +32,35 @@ const remove = catchError(async(req, res) => {
 
 const update = catchError(async(req, res) => {
     const { id } = req.params;
-    const result = await User.update(
-        req.body,
-        { where: {id}, returning: true }
-    );
+    let newObject={}
+    let newResult={}
+    for(let valor in req.body){
+        if(req.body.email !="" || req.body.password !=""){
+            newObject={
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                phone: req.body.phone
+            }
+       
+        }else if(req.body.email==="" || req.body.password ===""){
+            newObject={
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                phone: req.body.phone
+            }
+        }
+    }    
+    const result = await User.update( newObject, { where: {id}, returning: true });
+    console.log("este es result",result[1][0])
     if(result[0] === 0) return res.sendStatus(404);
-    return res.json(result[1][0]);
+    for( let valor in result[1][0]){
+        newResult={
+        firstName: result[1][0].firstName,
+        lastName: result[1][0].lastName,
+        phone: result[1][0].phone
+        }
+    }
+    return res.json(newResult);
 });
 
 const login = catchError(async(req, res) => {
@@ -41,7 +71,7 @@ const login = catchError(async(req, res) => {
 
     const isValid = await bcrypt.compare(password, user.password)
     if(!isValid) return res.status(401).json({"message": "invalid credentials"})
-
+ 
     const token = jwt.sign(
         {user},
         process.env.TOKEN_SECRET,
