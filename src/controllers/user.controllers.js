@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken')
 
 
 const getAll = catchError(async(req, res) => {
-   // console.log('llego...',req.body)
-    const results = await User.findAll();
+   //console.log('llego...',req.body) exclude
+   
+    const results = await User.findAll({where:{id:req.user.id}});
     results.forEach((x)=>{    
           delete x.dataValues.email
-          delete x.dataValues.password     
-         console.log(x)
+          delete x.dataValues.password 
     })
 
    return res.json(results);
@@ -32,35 +32,20 @@ const remove = catchError(async(req, res) => {
 
 const update = catchError(async(req, res) => {
     const { id } = req.params;
-    let newObject={}
-    let newResult={}
-    for(let valor in req.body){
-        if(req.body.email !="" || req.body.password !=""){
-            newObject={
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                phone: req.body.phone
-            }
-       
-        }else if(req.body.email==="" || req.body.password ===""){
-            newObject={
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                phone: req.body.phone
-            }
-        }
-    }    
-    const result = await User.update( newObject, { where: {id}, returning: true });
-    console.log("este es result",result[1][0])
+    console.log("este es el id del test",id)
+  for(let valor in req.body){
+     delete req.body.password
+     delete req.body.email
+  }    
+    console.log("llego al updtae..desde el test")
+    const result = await User.update( req.body, { where: {id}, returning: true });
+    
     if(result[0] === 0) return res.sendStatus(404);
-    for( let valor in result[1][0]){
-        newResult={
-        firstName: result[1][0].firstName,
-        lastName: result[1][0].lastName,
-        phone: result[1][0].phone
-        }
+    for(let valor in result[1][0]){
+          delete result[1][0].dataValues.password;
+          delete result[1][0].dataValues.email
     }
-    return res.json(newResult);
+    return res.json(result[1][0]);
 });
 
 const login = catchError(async(req, res) => {
