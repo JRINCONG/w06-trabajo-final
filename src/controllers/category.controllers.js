@@ -2,6 +2,7 @@ const catchError = require('../utils/catchError');
 const Categorie = require('../models/Category');
 
 const getAll = catchError(async(req, res) => {
+
     const results = await Categorie.findAll();
     return res.json(results);
 });
