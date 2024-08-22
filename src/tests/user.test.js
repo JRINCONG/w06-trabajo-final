@@ -21,12 +21,10 @@ let id;
             const login={
                 email: "rincon@google.com",
                 password: "jrincon123",
-            }
-        
+            }        
             const res = await request(App)
             .post(`${BASE_URL}/login`)
             .send(login)
-
             token = res.body.token;
         })
 
@@ -34,8 +32,6 @@ test("POST BASE_URL CREATE => BASE_URL should, return res.statusCode(201), res.b
     const res= await request(App)
     .post(BASE_URL)
     .send(user)
-
- 
 
     expect(res.statusCode).toBe(201)
     expect(res.body.firstName).toBe(user.firstName)
@@ -48,9 +44,8 @@ test("POST  Login => BASE_URL/login, should, returns res.statusCode(200), res.bo
     const res= await request(App)
    .post(`${BASE_URL}/login`)
    .send(login)
-
-    token2 = res.body.token;
    
+    token2 = res.body.token;  
  
     expect(res.statusCode).toBe(200)
     expect(res.body).toBeDefined()
