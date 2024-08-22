@@ -2,6 +2,8 @@ const request = require('supertest')
 const App = require('../app')
 let token2;
 let token;
+
+
 const BASE_URL='/api/v1/users';
 
 const user = {
@@ -41,10 +43,11 @@ test("POST BASE_URL CREATE => BASE_URL should, return res.statusCode(201), res.b
 
 
 test("POST  Login => BASE_URL/login, should, returns res.statusCode(200), res.body.email===user.email",async()=>{
-    const res= await request(App)
+    
+  const res= await request(App)
    .post(`${BASE_URL}/login`)
    .send(login)
-   
+
     token2 = res.body.token;  
  
     expect(res.statusCode).toBe(200)
@@ -52,6 +55,19 @@ test("POST  Login => BASE_URL/login, should, returns res.statusCode(200), res.bo
     expect(res.body.user.email).toBe(user.email)
 })
 
+test("POST  Login =>(error) BASE_URL/login, should, returns res.statusCode(401), res.body.email===user.email",async()=>{
+    const hits={
+      email: "andres@google.com",
+    password: "andres1234",
+    }
+  const res= await request(App)
+   .post(`${BASE_URL}/login`)
+   .send(hits)
+
+   
+ 
+    expect(res.statusCode).toBe(401)
+})
 
 test("GET GetAll => BASE_URL , should return res.statusCode(200), res.body.length === 1, res.body.firstName === user.///////firstName",async()=>{
 
