@@ -32,12 +32,11 @@ const remove = catchError(async(req, res) => {
 
 const update = catchError(async(req, res) => {
     const { id } = req.params;
-    console.log("este es el id del test",id)
   for(let valor in req.body){
      delete req.body.password
      delete req.body.email
   }    
-    console.log("llego al updtae..desde el test")
+   
     const result = await User.update( req.body, { where: {id}, returning: true });
     
     if(result[0] === 0) return res.sendStatus(404);
