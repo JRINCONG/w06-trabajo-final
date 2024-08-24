@@ -1,19 +1,21 @@
 const catchError = require('../utils/catchError');
 const Product = require('../models/Product');
+const Categorie = require('../models/Category');
 
 const getAll = catchError(async(req, res) => {
-    const results = await Product.findAll();
+    const results = await Product.findAll({include:[Categorie]});
     return res.json(results);
 });
 
 const create = catchError(async(req, res) => {
+
     const result = await Product.create(req.body);
     return res.status(201).json(result);
 });
 
 const getOne = catchError(async(req, res) => {
     const { id } = req.params;
-    const result = await Product.findByPk(id);
+    const result = await Product.findByPk(id,{include:[Categorie]});
     if(!result) return res.sendStatus(404);
     return res.json(result);
 });

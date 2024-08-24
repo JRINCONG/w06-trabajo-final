@@ -1,6 +1,6 @@
+require('../models')
 const sequelize = require("../utils/connection");
 
-require('../models')
 
 const testMigrate = async()=>{
 

@@ -7,8 +7,8 @@ const categori = {
     name:"smatPhone"
 }
 
-const BASE_URL1='/api/v1/users'
-const BASE_URL2='/api/v1/categories'
+const BASE_URL_LOGIN='/api/v1/users/login'
+const BASE_URL='/api/v1/categories'
 let TOKEN;
 
 beforeAll(async()=>{
@@ -17,7 +17,7 @@ beforeAll(async()=>{
         password: "jrincon123",
     }        
     const res = await request(App)
-    .post(`${BASE_URL1}/login`)
+    .post(BASE_URL_LOGIN)
     .send(login)
     TOKEN = res.body.token;   
 })
@@ -25,7 +25,7 @@ beforeAll(async()=>{
 
 test("POST BASE_URL2, should return res.statusCode(201)",async()=>{
     const res=await request(App)
-    .post(BASE_URL2)
+    .post(BASE_URL)
     .send(categori)
     .set('authorization',`Bearer ${TOKEN}`)
  
@@ -37,7 +37,7 @@ test("POST BASE_URL2, should return res.statusCode(201)",async()=>{
 
 test("GET => BASE_URL2 ,should return res.statusCode(200) res.body.length === 1",async()=>{
     const res = await request(App)
-    .get(BASE_URL2)
+    .get(BASE_URL)
 
     idCategory = res.body[0].id
 
@@ -49,7 +49,7 @@ test("GET => BASE_URL2 ,should return res.statusCode(200) res.body.length === 1"
 
 test("DELETE => BASE_URL2,should, return res.statusCode(204",async()=>{
     const res = await request(App)
-    .delete(`${BASE_URL2}/${idCategory}`)
+    .delete(`${BASE_URL}/${idCategory}`)
     .set('authorization',`Bearer ${TOKEN}`)
   
     expect(res.statusCode).toBe(204)
