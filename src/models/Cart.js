@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/connection');
 
-const Carts = sequelize.define('cart', {
+const Cart = sequelize.define('cart', {
     quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -10,4 +10,4 @@ const Carts = sequelize.define('cart', {
     },
 });
 
-module.exports = Carts;
+module.exports = Cart;

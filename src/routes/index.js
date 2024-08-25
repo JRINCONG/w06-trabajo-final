@@ -3,6 +3,9 @@ const routerUser = require('./user.router');
 const routerCategorie = require('./category.router');
 const routerProduct = require('./product.router');
 const routerCart = require('./cart.router');
+const routerPurchase = require('./purchase.router');
+const routerProductImg = require('./productImg.router');
+const { verifyJWT } = require('../utils/verifyJWT');
 const router = express.Router();
 
 // colocar las rutas aquí
@@ -10,7 +13,10 @@ const router = express.Router();
 router.use('/users', routerUser)
 router.use('/categories', routerCategorie)
 router.use('/products', routerProduct)
-router.use('/carts', routerCart)
+router.use('/cart', routerCart)
+router.use('/purchase', routerPurchase)
+router.use('/product_images', verifyJWT, routerProductImg)
+
 
 
 module.exports = router;

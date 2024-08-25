@@ -25,7 +25,7 @@ const productosObje ={
     }
 
 const BASE_URL_LOGIN='/api/v1/users/login';
-const BASE_URL='/api/v1/carts'
+const BASE_URL='/api/v1/cart'
 let TOKEN;
 let usuario;
 let producto;
@@ -64,6 +64,9 @@ test("POST => BASE_URL,  should return res.statusCode(201), res.body.userId === 
     .send(cart)
     .set('authorization', `Bearer ${TOKEN}`)
   
+
+   
+
     id=res.body.id;
     
     expect(res.statusCode).toBe(201)
@@ -77,11 +80,10 @@ test("GetAll => BASE_URL, should retur res.body.length === 1",async()=>{
      .get(BASE_URL)
      .set('authorization', `Bearer ${TOKEN}`)
 
-    console.log("este es el get All",res.body)
      
      expect(res.statusCode).toBe(200)
      expect(res.body).toBeDefined()
-     expect(res.body[0].user.id).toBe(IdUser)
+     expect(res.body[0].userId).toBe(IdUser)
      expect(res.body[0].product.id).toBe(producto.id)
 })
 
@@ -93,7 +95,7 @@ test("GetOne => BASE_URL/:id, should return res.satusCode(200) res.body.id === i
   expect(res.statusCode).toBe(200)
   expect(res.body).toBeDefined()
   expect(res.body.id).toBe(id)
-  expect(res.body.user.id).toBe(IdUser)
+  expect(res.body.userId).toBe(IdUser)
   expect(res.body.product.title).toBe(producto.title)
 })
 
