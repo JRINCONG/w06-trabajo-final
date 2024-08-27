@@ -15,7 +15,7 @@ let TOKEN;
 const Product ={
     title: "samsung galaxy s23",
     description: "teléfono inteligente Android desbloqueado de 256 GB, batería de larga duración, procesador premium, pantalla de vidrio Gorilla resistente, cámara de alta resolución",
-    price: 756     
+    price: 7566   
     }
 
 afterAll(async()=>{
@@ -36,7 +36,7 @@ beforeAll(async()=>{
 
 
 
-test("POST => BASE_URL1, should return res.statusCode(201), res.body.firstName === Product.firstName ",async()=>{
+test("POST => BASE_URL1, should return res.statusCode(201), res.body.firstName === Product.firstName and res.body.price===Product.price",async()=>{
      categoria = await Categori.create({name:'SmatPhone'})
     Product.categorieId = categoria.id
 
@@ -48,9 +48,12 @@ test("POST => BASE_URL1, should return res.statusCode(201), res.body.firstName =
     .set('authorization', `Bearer ${TOKEN}`)
 
     id = res.body.id;
+
+
     expect(res.statusCode).toBe(201)
     expect(res.body).toBeDefined()
     expect(res.body.firstName).toBe(Product.firstName)
+    expect(res.body.price).toBe(Product.price)
    
 })
 
@@ -58,13 +61,12 @@ test("GetAll => BASE_URL , should return res.statusCode(200) res.body.length ===
     const res= await request(App)
     .get(BASE_URL)
 
-  
+  console.log(res)
 
     expect(res.statusCode).toBe(200)
     expect(res.body).toBeDefined()
     expect(res.body).toHaveLength(1)
     expect(res.body[0].firstName).toBe(Product.firstName)
-
 })
 
 test("GetOne=> BASE_URL/:id, should return res.statusCode(200), res.body.firstName === Product.firstName, res.body.id === id",async()=>{
@@ -83,7 +85,7 @@ test("GetOne=> BASE_URL/:id, should return res.statusCode(200), res.body.firstNa
 test("PUT => BASE_URL/:id, should return res.statusCode(200), res.body.title === productos.title, and res.body.proce === productos.price",async()=>{
     const productos={
         title: "samsung galaxy sA23",
-        price: "85.03"
+        price: 85
     }
     const res = await request(App)
     .put(`${BASE_URL}/${id}`)

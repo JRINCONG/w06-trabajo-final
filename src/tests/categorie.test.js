@@ -23,7 +23,7 @@ beforeAll(async()=>{
 })
 
 
-test("POST BASE_URL2, should return res.statusCode(201)",async()=>{
+test("POST BASE_URL2, should return res.statusCode(201), res.body.name === categori.name ",async()=>{
     const res=await request(App)
     .post(BASE_URL)
     .send(categori)

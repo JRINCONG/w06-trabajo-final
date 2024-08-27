@@ -1,7 +1,7 @@
 const catchError = require('../utils/catchError');
 const Product = require('../models/Product');
 const Categorie = require('../models/Category');
-const ProductImg = require('../models/ProductImg')
+
 
 const getAll = catchError(async(req, res) => {
     const results = await Product.findAll({
@@ -10,8 +10,8 @@ const getAll = catchError(async(req, res) => {
             attributes:['id','name'],
         
         },
-        {   model:ProductImg,
-            attributes:['url']}
+       // {   model:ProductImg,
+         //   attributes:['url']}
     ]});
     return res.json(results);
 });
@@ -49,11 +49,15 @@ const update = catchError(async(req, res) => {
     if(result[0] === 0) return res.sendStatus(404);
     return res.json(result[1][0]);
 });
+//POST  /products/:id/images
+
+
 
 module.exports = {
     getAll,
     create,
     getOne,
     remove,
-    update
+    update,
+   
 }

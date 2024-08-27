@@ -44,7 +44,6 @@ const Productos ={
     description: "teléfono inteligente Android desbloqueado de 256 GB, batería de larga duración, procesador premium, pantalla de vidrio Gorilla resistente, cámara de alta resolución",
     price: 756     
     }
-
    
 const categori = {
     name:"smatPhone"
@@ -56,7 +55,7 @@ const categori = {
 test("get => BASE_URL should return res.statusCode(201), res.body.userId === id, res.body.productId === prodcuto.id",async()=>{
    category= await Category.create(categori)
    producto = await Product.create(Productos)
-   producto.categorieId=category.id 
+   producto.categorieId=category.id; 
    Car = await Cart.create(NewObject)
     
     
@@ -83,6 +82,7 @@ test("GetAll => BASE_URL should resturn",async()=>{
     expect(res.body[0].product.title).toBe(producto.title)  
 
     await producto.destroy()
-    await category.destroy() 
-    await Car.destroy()
+    await category.destroy()
+    await Car.destroy() 
+   
 })

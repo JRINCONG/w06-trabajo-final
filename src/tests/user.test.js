@@ -77,10 +77,13 @@ test("GET GetAll => BASE_URL , should return res.statusCode(200), res.body.lengt
  
     id=res.body[0].id
     
+
+   
     expect(res.statusCode).toBe(200)
     expect(res.body[0].firstName).toBe(user.firstName)
-
-
+    expect(res.body[0].phone).toBe(user.phone)
+    expect(res.body).toHaveLength(1)
+    expect(res.body).toBeDefined()
 })
 
 test("PUT BASE_URL/:id, should return res.statusCode(200)",async()=>{

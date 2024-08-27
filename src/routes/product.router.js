@@ -8,6 +8,8 @@ routerProduct.route('/')
     .get(getAll)
     .post(verifyJWT, create);
 
+  
+
 routerProduct.route('/:id')
     .get(getOne)
     .delete(verifyJWT, remove)

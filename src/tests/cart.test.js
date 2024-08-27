@@ -10,13 +10,7 @@ const cart ={
     quantity:8
 }
 
-const user = {
-    firstName: "andres",
-    lastName: "rincon",
-    email: "andres@google.com",
-    password: "andres123",
-    phone: "1236547567889"
-}
+
 
 const productosObje ={
     title: "samsung galaxy s23",
@@ -75,7 +69,7 @@ test("POST => BASE_URL,  should return res.statusCode(201), res.body.userId === 
     expect(res.body.productId).toBe(producto.id)
 })
 
-test("GetAll => BASE_URL, should retur res.body.length === 1",async()=>{
+test("GetAll => BASE_URL, should retur res.body.length === 1, res.body[0].product.id === producto.id",async()=>{
      const res = await request(App)
      .get(BASE_URL)
      .set('authorization', `Bearer ${TOKEN}`)
@@ -99,7 +93,7 @@ test("GetOne => BASE_URL/:id, should return res.satusCode(200) res.body.id === i
   expect(res.body.product.title).toBe(producto.title)
 })
 
-test("PUT => BASE_URL/:id, should return res.satusCode(200)",async()=>{
+test("PUT => BASE_URL/:id, should return res.satusCode(200), res.body.quantity === cart.quantity",async()=>{
 
     cart.quantity=25;
     const res = await request(App)
