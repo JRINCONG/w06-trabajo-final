@@ -19,12 +19,15 @@ const getAll = catchError(async(req, res) => {
             }],   
    
         })
-
-        for(let valor in results[0].dataValues){
-            delete results[0].dataValues.createdAt,
-            delete results[0].dataValues.updatedAt
-        }
-        return res.status(200).json(results); 
+        console.log(results)
+ if(results.length === 1){
+     for(let valor in results[0].dataValues){
+         delete results[0].dataValues.createdAt,
+         delete results[0].dataValues.updatedAt
+     }
+     return res.status(200).json(results);
+ }
+ return res.status(404).json({"message":"has no record"});
 });
 
 const create = catchError(async(req, res) => {

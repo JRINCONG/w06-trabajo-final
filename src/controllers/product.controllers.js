@@ -61,7 +61,7 @@ const setImg = catchError(async(req, res)=>{
    
        const imagen = await product.getProductImages()
   
-       return res.sendStatusgit(200).json(imagen)
+       return res.status(200).json(imagen)
    
    })
    
