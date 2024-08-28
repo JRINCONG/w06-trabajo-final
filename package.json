@@ -10,7 +10,7 @@
     "dev": "nodemon src/server",
     "test": "jest --detectOpenHandles",
     "pretest": "npm run reset:migrate",
-    "posttest": "node ./src/tests/postTest.js"
+    "postTest": "node ./src/tests/postTest.js"
   },
   "keywords": [],
   "author": "",

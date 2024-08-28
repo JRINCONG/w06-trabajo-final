@@ -54,7 +54,7 @@ const remove = catchError(async(req, res) => {
 
 const update = catchError(async(req, res) => {
     const { id } = req.params;
-   console.log(req.body)
+   
    for(let valor  in req.body){
      delete req.body.userId
      delete req.body.productId

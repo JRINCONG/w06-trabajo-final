@@ -28,7 +28,6 @@ let IdUser;
 
 afterAll(async()=>{
     await producto.destroy()
-    console.log("elimino las instacias")
     })
 
    beforeAll(async()=>{

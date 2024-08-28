@@ -19,7 +19,7 @@ const getAll = catchError(async(req, res) => {
             }],   
    
         })
-        console.log(results)
+        
  if(results.length === 1){
      for(let valor in results[0].dataValues){
          delete results[0].dataValues.createdAt,

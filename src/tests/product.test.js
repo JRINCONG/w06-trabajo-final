@@ -61,7 +61,7 @@ test("GetAll => BASE_URL , should return res.statusCode(200) res.body.length ===
     const res= await request(App)
     .get(BASE_URL)
 
-  console.log(res)
+
 
     expect(res.statusCode).toBe(200)
     expect(res.body).toBeDefined()
