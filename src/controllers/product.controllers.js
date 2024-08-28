@@ -50,7 +50,21 @@ const update = catchError(async(req, res) => {
     return res.json(result[1][0]);
 });
 //POST  /products/:id/images
-
+const setImg = catchError(async(req, res)=>{
+    console.log("entro")
+    const { id } = req.params
+       const product = await Product.findByPk(id)
+       
+       if(!product) return res.sendStatus(404)
+           
+           await product.setProductImages(res.body)
+   
+       const imagen = await product.getProductImages()
+  
+       return res.sendStatus(200).json(imagen)
+   
+   })
+   
 
 
 module.exports = {
@@ -59,5 +73,6 @@ module.exports = {
     getOne,
     remove,
     update,
+    setImg
    
 }

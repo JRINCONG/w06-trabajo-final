@@ -2,7 +2,7 @@
   "name": "create-exp-sq",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "bin": "./bin/cli.js",
   "scripts": {
     "reset:migrate": "node ./src/tests/testMigrate.js",
